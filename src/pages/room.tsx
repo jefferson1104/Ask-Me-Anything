@@ -1,8 +1,9 @@
 import { useParams } from 'react-router-dom'
 import { toast } from 'sonner'
-import { ArrowRight, ArrowUp, Share2 } from 'lucide-react'
+import { ArrowRight, Share2 } from 'lucide-react'
 
 import amaLogo from '../assets/ama-logo.svg'
+import { Question } from '../components/question'
 
 
 function Room () {
@@ -63,23 +64,16 @@ function Room () {
 
       {/* Questions list */}
       <ol className='list-decimal list-outside px-3 space-y-8'>
-        <li className='ml-4 leading-relaxed text-zinc-100'>
-          O que é GoLang e quais são suas principais vantagens em comparação com outras linguagens de programação como Python, Java ou C++?
+        <Question
+          text="O que é GoLang e quais são suas principais vantagens em comparação com outras linguagens de programação como Python, Java ou C++?"
+          amountOfLikes={120}
+        />
 
-          <button type='button' className='mt-3 flex items-center gap-2 text-orange-400 hover:text-orange-500 text-sm font-medium'>
-            <ArrowUp className='size-4' />
-            Like question (123)
-          </button>
-        </li>
-
-        <li className='ml-4 leading-relaxed text-zinc-100'>
-          O que é GoLang e quais são suas principais vantagens em comparação com outras linguagens de programação como Python, Java ou C++?
-
-          <button type='button' className='mt-3 flex items-center gap-2 text-zinc-400 hover:text-zinc-300 text-sm font-medium'>
-            <ArrowUp className='size-4' />
-            Like question (123)
-          </button>
-        </li>
+        <Question
+          text="Quais são as melhores práticas para organizar o código em um projeto GoLang, incluindo pacotes, módulos e a estrutura de diretórios?"
+          amountOfLikes={65}
+          answered
+        />
       </ol>
     </div>
   )
