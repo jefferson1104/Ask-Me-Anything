@@ -1,7 +1,12 @@
-function Room () {
+import { useParams } from "react-router-dom"
 
+function Room () {
+  // Hooks
+  const { roomId } = useParams()
+
+  // Renders
   return (
-    <h1>Room</h1>
+    <h1>Room: {roomId}</h1>
   )
 }
 
