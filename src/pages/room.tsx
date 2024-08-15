@@ -1,10 +1,11 @@
+import { Suspense } from 'react'
 import { useParams } from 'react-router-dom'
 import { toast } from 'sonner'
 import { ArrowRight, Share2 } from 'lucide-react'
 
-import amaLogo from '../assets/ama-logo.svg'
-import { Question } from '../components/question'
+import { Questions } from '../components/questions'
 
+import amaLogo from '../assets/ama-logo.svg'
 
 function Room () {
   // Hooks
@@ -42,8 +43,7 @@ function Room () {
       {/* Divisor */}
       <div className='h-px w-full bg-zinc-900' />
 
-
-      {/* Create questions */}
+      {/* Create questions form */}
       <form
         action={() => console.log('teste')}
         className='flex items-center gap-2 bg-zinc-900 p-2 rounded-xl border border-zinc-800 ring-orange-400 ring-offset-2 ring-offset-zinc-950 focus-within:ring-1'
@@ -63,18 +63,9 @@ function Room () {
       </form>
 
       {/* Questions list */}
-      <ol className='list-decimal list-outside px-3 space-y-8'>
-        <Question
-          text="O que é GoLang e quais são suas principais vantagens em comparação com outras linguagens de programação como Python, Java ou C++?"
-          amountOfLikes={120}
-        />
-
-        <Question
-          text="Quais são as melhores práticas para organizar o código em um projeto GoLang, incluindo pacotes, módulos e a estrutura de diretórios?"
-          amountOfLikes={65}
-          answered
-        />
-      </ol>
+      <Suspense fallback={<p>Loading...</p>}>
+        <Questions />
+      </Suspense>
     </div>
   )
 }

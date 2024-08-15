@@ -14,7 +14,7 @@ function CreateRoom() {
   const navigate = useNavigate()
 
   // States
-  const [createRoomIsLoading, setCreateRoomIsLoading] = useState(true)
+  const [createRoomIsLoading, setCreateRoomIsLoading] = useState(false)
 
   // Methods
   async function handleCreateRoom(data: FormData) {
