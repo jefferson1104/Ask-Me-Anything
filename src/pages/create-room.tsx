@@ -1,19 +1,38 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, LoaderIcon } from 'lucide-react'
+import { toast } from 'sonner'
+
+import { createRoom } from '../http/create-room'
 
 import amaLogo from '../assets/ama-logo.svg'
+
 
 function CreateRoom() {
   // Hooks
   const navigate = useNavigate()
 
+  // States
+  const [createRoomIsLoading, setCreateRoomIsLoading] = useState(true)
+
   // Methods
-  function handleCreateRoom(data: FormData) {
+  async function handleCreateRoom(data: FormData) {
     const theme = data.get('theme')?.toString()
 
-    console.log('THEME => ', theme)
+    if (!theme) return;
 
-    navigate('/room/1234-abcde')
+    try {
+      setCreateRoomIsLoading(true);
+      const { roomId } = await createRoom({ theme })
+
+      navigate(`/room/${roomId}`)
+    } catch (error: any) {
+      console.error('handleCreateRoom() Error: ', error)
+      toast.error('An error occurred while creating the room.')
+    } finally {
+      setCreateRoomIsLoading(false);
+    }
   }
 
   // Renders
@@ -35,12 +54,17 @@ function CreateRoom() {
             name='theme'
             placeholder='Room name'
             autoComplete='off'
+            required
             className='flex-1 text-sm bg-transparent mx-2 outline-none placeholder:text-zinc-500 text-zinc-100'
           />
 
-          <button type='submit' className='bg-orange-400 text-orange-950 px-3 py-1.5 gap-1.5 flex items-center rounded-lg font-medium text-sm hover:bg-orange-500 transition-colors duration-300'>
-            Create Room
-            <ArrowRight className='size-4' />
+          <button
+            type='submit'
+            disabled={createRoomIsLoading}
+            className='bg-orange-400 text-orange-950 px-3 py-1.5 gap-1.5 flex items-center rounded-lg font-medium text-sm hover:bg-orange-500 transition-colors duration-300 disabled:cursor-not-allowed'
+          >
+            {createRoomIsLoading ? 'Creating...' : 'Create Room'}
+            {createRoomIsLoading ? (<LoaderIcon className='size-4 animate-spin' />) : (<ArrowRight className='size-4' />)}
           </button>
         </form>
       </div>
