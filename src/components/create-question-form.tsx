@@ -8,7 +8,7 @@ export function CreateQuestionForm() {
   // Hooks
   const { roomId } = useParams();
 
-  if (!roomId) throw new Error('QuestionList component must be used inside a Room component')
+  if (!roomId) throw new Error('Create Question Form component must be used inside a Room component')
 
   // Methods
   async function createQuestionAction(data: FormData) {

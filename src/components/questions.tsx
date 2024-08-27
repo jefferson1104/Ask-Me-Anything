@@ -25,6 +25,7 @@ export function Questions() {
       {questions.map(question => (
         <Question
           key={question.id}
+          questionId={question.id}
           text={question.text}
           amountOfLikes={question.amountOfLikes}
           answered={question.answered}
