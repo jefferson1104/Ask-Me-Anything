@@ -9,11 +9,11 @@ import { removeQuestionReaction } from '../http/remove-question-reaction';
 interface QuestionProps {
   questionId: string;
   text: string;
-  amountOfLikes: number;
+  amountOfReactions: number;
   answered?: boolean
 }
 
-export function Question({ questionId, text, amountOfLikes, answered = false }: QuestionProps) {
+export function Question({ questionId, text, amountOfReactions, answered = false }: QuestionProps) {
   // Hooks
   const { roomId } = useParams();
 
@@ -59,7 +59,7 @@ export function Question({ questionId, text, amountOfLikes, answered = false }: 
           className='mt-3 flex items-center gap-2 text-orange-400 hover:text-orange-500 text-sm font-medium'
         >
           <ArrowUp className='size-4' />
-          Like question ({amountOfLikes})
+          Like question ({amountOfReactions})
         </button>
       ) : (
         <button
@@ -68,7 +68,7 @@ export function Question({ questionId, text, amountOfLikes, answered = false }: 
           className='mt-3 flex items-center gap-2 text-zinc-400 hover:text-zinc-300 text-sm font-medium'
         >
           <ArrowUp className='size-4' />
-          Like question ({amountOfLikes})
+          Like question ({amountOfReactions})
         </button>
       )}
     </li>

@@ -1,10 +1,19 @@
-import { IQuestion } from "../interfaces/question";
-
 interface GetRoomQuestionsRequest {
   roomId: string;
 }
 
-export async function getRoomQuestions({ roomId }: GetRoomQuestionsRequest) {
+interface IQuestion {
+  id: string;
+  text: string;
+  amountOfReactions: number;
+  answered: boolean;
+}
+
+interface GetRoomQuestionsResponse {
+  questions: IQuestion[];
+}
+
+export async function getRoomQuestions({ roomId }: GetRoomQuestionsRequest): Promise<GetRoomQuestionsResponse> {
   const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/rooms/${roomId}/messages`)
 
   const data: Array<{
@@ -15,15 +24,14 @@ export async function getRoomQuestions({ roomId }: GetRoomQuestionsRequest) {
     Answered: boolean
   }> = await response.json()
 
-  const questions: IQuestion[] = data.map(item => {
-    return {
-      id: item.ID,
-      roomId: item.RoomID,
-      text: item.Message,
-      amountOfLikes: item.ReactionCount,
-      answered: item.Answered
-    }
-  })
-
-  return { questions }
+  return {
+    questions: data.map(item => {
+      return {
+        id: item.ID,
+        text: item.Message,
+        amountOfReactions: item.ReactionCount,
+        answered: item.Answered
+      }
+    })
+  }
 }
