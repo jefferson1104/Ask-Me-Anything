@@ -9,7 +9,7 @@ interface IQuestion {
   answered: boolean;
 }
 
-interface GetRoomQuestionsResponse {
+export interface GetRoomQuestionsResponse {
   questions: IQuestion[];
 }
 
