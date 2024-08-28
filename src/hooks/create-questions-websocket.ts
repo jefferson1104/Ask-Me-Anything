@@ -13,8 +13,6 @@ type WebhookMessage =
   | {kind: "message_reaction_increased", value: { id: string, count: number }}
   | {kind: "message_reaction_decreased", value: { id: string, count: number }}
 
-
-
 export function useQuestionsWebSockets ({
   roomId
 }: UseQuestionsWebsocketsParams) {
